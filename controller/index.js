@@ -22,6 +22,11 @@ function renderGiaoDien() {
             <td>${nhanVien.chucVu}</td>
             <td>${tongLuong}</td>
             <td>${xepLoai}</td>
+            <td>
+            <button onclick="xoaNhanVien(${nhanVien.taiKhoan})" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+            <button onclick="editNhanVien(${nhanVien.taiKhoan})" class="btn btn-warning" data-toggle="modal"
+            data-target="#myModal"><i class="fa-solid fa-pen"></i></button>
+            </td>
             </tr>
             `
     }
@@ -30,28 +35,44 @@ function renderGiaoDien() {
 renderGiaoDien();
 
 function themNhanVien() {
-    // Lấy dữ liệu
-    var _taiKhoan = document.getElementById("tknv").value;
-    var _hoTen = document.getElementById("name").value;
-    var _email = document.getElementById("email").value;
-    var _matKhau = document.getElementById("password").value;
-    var _ngayLam = document.getElementById("datepicker").value;
-    var _luongCoBan = document.getElementById("luongCB").value * 1;
-    var _chucVu = document.getElementById("chucvu").value;
-    var _gioLam = document.getElementById("gioLam").value * 1;
+    var nhanVien = layGiaTriInput();
     
-    var nhanVien = new NhanVien(
-        _taiKhoan,
-        _hoTen,
-        _email,
-        _matKhau,
-        _ngayLam,
-        _luongCoBan,
-        _chucVu,
-        _gioLam
-    );
     arrNhanVien.push(nhanVien);
     saveStorage(arrNhanVien);
     renderGiaoDien();
-    var nhanVien = new NhanVien("", "", "", "", "", "", "", "");
+    ganGiaTriChoInput("","","","","","","","");
+}
+
+
+
+
+
+// Chức năng xoá Nhân viên
+function xoaNhanVien(taiKhoan) {
+    console.log(taiKhoan);
+    var index = timViTriNhanVien(taiKhoan);
+    if (index != -1) {
+        arrNhanVien.splice(index, 1);
+        renderGiaoDien();
+    }
+}
+
+// Chức năng sửa thông tin nhân viên
+function editNhanVien(taiKhoan) {
+    document.getElementById("btnCapNhat").innerHTML;
+    var index = timViTriNhanVien(taiKhoan);
+    var nhanVien = arrNhanVien[index];
+    console.log(nhanVien)
+    ganGiaTriChoInput(nhanVien.taiKhoan, nhanVien.hoTen, nhanVien.email, nhanVien.matKhau, nhanVien.ngayLam, nhanVien.luongCoBan, nhanVien.chucVu, nhanVien.gioLam);
+    document.getElementById("tknv").readOnly = true;
+}
+
+function capNhatThongTinNhanVien() {
+    var nhanVienDaChinhSua = layGiaTriInput();
+    // console.log(nhanVienDaChinhSua);
+    var index = timViTriNhanVien(nhanVienDaChinhSua.taiKhoan);
+    arrNhanVien[index] = nhanVienDaChinhSua;
+    
+    saveStorage(arrNhanVien);
+    renderGiaoDien();
 }
