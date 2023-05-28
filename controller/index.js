@@ -36,11 +36,12 @@ renderGiaoDien();
 
 function themNhanVien() {
     var nhanVien = layGiaTriInput();
-    
-    arrNhanVien.push(nhanVien);
-    saveStorage(arrNhanVien);
-    renderGiaoDien();
-    ganGiaTriChoInput("","","","","","","","");
+    if (nhanVien) {
+        arrNhanVien.push(nhanVien);
+        saveStorage(arrNhanVien);
+        renderGiaoDien();
+        ganGiaTriChoInput("","","","","","","","");
+    }
 }
 
 
@@ -49,10 +50,10 @@ function themNhanVien() {
 
 // Chức năng xoá Nhân viên
 function xoaNhanVien(taiKhoan) {
-    console.log(taiKhoan);
     var index = timViTriNhanVien(taiKhoan);
     if (index != -1) {
         arrNhanVien.splice(index, 1);
+        saveStorage(arrNhanVien);
         renderGiaoDien();
     }
 }
@@ -61,6 +62,7 @@ function xoaNhanVien(taiKhoan) {
 function editNhanVien(taiKhoan) {
     document.getElementById("btnCapNhat").innerHTML;
     var index = timViTriNhanVien(taiKhoan);
+    console.log("index: ", index);
     var nhanVien = arrNhanVien[index];
     console.log(nhanVien)
     ganGiaTriChoInput(nhanVien.taiKhoan, nhanVien.hoTen, nhanVien.email, nhanVien.matKhau, nhanVien.ngayLam, nhanVien.luongCoBan, nhanVien.chucVu, nhanVien.gioLam);

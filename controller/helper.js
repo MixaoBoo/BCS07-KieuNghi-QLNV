@@ -27,7 +27,8 @@ function ganGiaTriChoInput(taiKhoan, hoTen, email, matKhau, ngayLam, luongCoBan,
 function timViTriNhanVien(taiKhoan) {
   var viTri = -1;
   arrNhanVien.forEach(function (item, index) {
-      if (item.taiKhoan == taiKhoan) {
+    // console.log(item.taiKhoan)
+    if (item.taiKhoan == taiKhoan) {
           viTri = index;
       }
   });
@@ -45,6 +46,22 @@ function layGiaTriInput() {
   var _luongCoBan = document.getElementById("luongCB").value * 1;
   var _chucVu = document.getElementById("chucvu").value;
   var _gioLam = document.getElementById("gioLam").value * 1;
+
+  var valid = true;
+  valid =
+    kiemTraRong(_taiKhoan, "tbTKNV") &
+    kiemTraRong(_hoTen, "tbTen") &
+    kiemTraRong(_email, "tbEmail") &
+    kiemTraRong(_matKhau, "tbMatKhau") &
+    kiemTraRong(_ngayLam, "tbNgay") &
+    kiemTraRong(_luongCoBan, "tbLuongCB") &
+    kiemTraRong(_chucVu, "tbChucVu") &
+    kiemTraRong(_gioLam, "tbGiolam") &
+    kiemTraEmail(_email, "tbEmail");
+
+  if (!valid) {
+    return;
+  }
 
   // khi lấy được dữ liệu, gọi tới lớp đối tượng nhân viên và tạo ra đối tượng sinh viên
   var nhanVien = new NhanVien(
