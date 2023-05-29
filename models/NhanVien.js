@@ -42,5 +42,6 @@ function NhanVien(
         } else if (this.gioLam >= 192) {
             return "Nhân viên xuất sắc";
         }
+        return "Nhân viên trung bình";
     };
 }

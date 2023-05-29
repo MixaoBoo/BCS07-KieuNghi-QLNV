@@ -163,6 +163,7 @@
                       class="form-control"
                       placeholder="Loại nhân viên"
                       id="searchName"
+                      onchange="searchLoaiNV()"
                     />
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="btnTimNV"
@@ -306,7 +307,7 @@
                     ></span>
                   </div>
                   <input
-                    type="date"
+                    type="text"
                     name="ngaylam"
                     id="datepicker"
                     class="form-control"
@@ -342,10 +343,10 @@
                     ></span>
                   </div>
                   <select class="form-control" id="chucvu">
-                    <option>Chọn chức vụ</option>
-                    <option>Sếp</option>
-                    <option>Trưởng phòng</option>
-                    <option>Nhân viên</option>
+                    <option value="">Chọn chức vụ</option>
+                    <option value="Sếp">Sếp</option>
+                    <option value="Trưởng phòng">Trưởng phòng</option>
+                    <option value="Nhân viên">Nhân viên</option>
                   </select>
                 </div>
 
@@ -394,6 +395,7 @@
               type="button"
               class="btn btn-danger"
               data-dismiss="modal"
+              onclick="resetEvent()"
             >
               Đóng
             </button>

@@ -57,7 +57,13 @@ function layGiaTriInput() {
     kiemTraRong(_luongCoBan, "tbLuongCB") &
     kiemTraRong(_chucVu, "tbChucVu") &
     kiemTraRong(_gioLam, "tbGiolam") &
-    kiemTraEmail(_email, "tbEmail");
+    kiemTraEmail(_email, "tbEmail") &
+    kiemTraTaiKhoan(_taiKhoan, "tbTKNV") &
+    kiemTraTenNV(_hoTen, "tbTen") &
+    kiemTraPasword(_matKhau, "tbMatKhau") &
+    kiemTraDate(_ngayLam, "tbNgay") &
+    kiemTraLươngCB(_luongCoBan, "tbLuongCB") &
+    kiemTraSoGioLam(_gioLam, "tbGiolam");
 
   if (!valid) {
     return;

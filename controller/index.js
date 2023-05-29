@@ -2,7 +2,7 @@ var arrNhanVien = [];
 getStorage();
 renderGiaoDien();
 
-    // Render ra giao diện
+// Render ra giao diện
 function renderGiaoDien() {
     var content = "";
     for (var i = 0; i < arrNhanVien.length; i++) {
@@ -12,13 +12,19 @@ function renderGiaoDien() {
         Object.assign(nhanVien, nhanVienItem);
         var tongLuong = nhanVien.tongLuong();
         var xepLoai = nhanVien.loaiNhanVien();
+        var date = new Date(nhanVien.ngayLam);
+        var month = String(date.getMonth() + 1).padStart(2, '0');
+        var day = String(date.getDate()).padStart(2, '0');
+        var year = String(date.getFullYear());
+
+        var formattedDate = month + '/' + day + '/' + year;
         content +=
             `
             <tr>
             <td>${nhanVien.taiKhoan}</td>
             <td>${nhanVien.hoTen}</td>
             <td>${nhanVien.email}</td>
-            <td>${nhanVien.ngayLam}</td>
+            <td>${formattedDate}</td>
             <td>${nhanVien.chucVu}</td>
             <td>${tongLuong}</td>
             <td>${xepLoai}</td>
@@ -40,7 +46,7 @@ function themNhanVien() {
         arrNhanVien.push(nhanVien);
         saveStorage(arrNhanVien);
         renderGiaoDien();
-        ganGiaTriChoInput("","","","","","","","");
+        ganGiaTriChoInput("", "", "", "", "", "", "", "");
     }
 }
 
@@ -56,6 +62,15 @@ function xoaNhanVien(taiKhoan) {
         saveStorage(arrNhanVien);
         renderGiaoDien();
     }
+}
+
+function resetEvent() {
+    document.getElementById("tknv").readOnly = false;
+    ganGiaTriChoInput("", "", "", "", "", "", "", "");
+    var arrTB = ["tbTKNV", "tbTen", "tbEmail", "tbMatKhau", "tbNgay", "tbLuongCB", "tbChucVu", "tbGiolam"];
+    arrTB.forEach(idThongBao => {
+        document.getElementById(idThongBao).innerHTML = "";
+    })
 }
 
 // Chức năng sửa thông tin nhân viên
@@ -74,7 +89,28 @@ function capNhatThongTinNhanVien() {
     // console.log(nhanVienDaChinhSua);
     var index = timViTriNhanVien(nhanVienDaChinhSua.taiKhoan);
     arrNhanVien[index] = nhanVienDaChinhSua;
-    
+
     saveStorage(arrNhanVien);
+    renderGiaoDien();
+}
+
+// Hàm tìm loại nhân viên
+function searchLoaiNV() {
+    var searchLoaiNV = document.getElementById("searchName").value;
+    var newArrNV = [];
+    arrNhanVien.forEach((item, index) => {
+        var nhanVien = new NhanVien();
+        Object.assign(nhanVien, item);
+        var xepLoai = nhanVien.loaiNhanVien();
+        if (searchLoaiNV === xepLoai) {
+            newArrNV.push(item);
+        }
+    })
+
+    if (searchLoaiNV === "") {
+        getStorage();
+    } else {
+        arrNhanVien = newArrNV;
+    }
     renderGiaoDien();
 }
